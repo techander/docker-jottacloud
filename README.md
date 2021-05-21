@@ -47,6 +47,8 @@ LOCALTIME | Local timezone. ex, `Aisa/Taipei`
  - Folder specific excludes
   - Put a `.jottaignore` in that folder.
 
+**NOTE**: Adding a new pattern will also apply to files already backup. If you already have a backup which contains `/foo/bar/` and later adds a new pattern `bar/` in ignore list, the `bar/` folder will be removed from all your previous backups and moved to Trash.
+
 ### Syntax / Pattern
 `.ignore`, `ignorefile`, and `.jottaignore` are `.gitignore` compatible.  You can check templates in [github/gitignore](https://github.com/github/gitignore) or use [Gitignore.io](https://gitignore.io) to generate one for you.
 
