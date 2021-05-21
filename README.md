@@ -1,7 +1,7 @@
 # Dockerized Jottacloud Client
 Docker of Jottacloud client side backup daemon with jotta-cli and jottad inside.
 
-Jottacloud is a Cloud Storage (backup) service provider, which offers [unlimited storage space](https://www.jottacloud.com/en/pricing.html) for personal use. It also has lifetime plan.
+Jottacloud is a Cloud Storage (backup) service provider, which offers [unlimited storage space](https://www.jottacloud.com/en/pricing.html) for personal use.
 
 ## Repository
 - GitHub: [bluet/docker-jottacloud](https://github.com/bluet/docker-jottacloud/)
