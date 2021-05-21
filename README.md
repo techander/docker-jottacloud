@@ -7,6 +7,25 @@ Jottacloud is a Cloud Storage (backup) service provider, which offers [unlimited
 - GitHub: [bluet/docker-jottacloud](https://github.com/bluet/docker-jottacloud/)
 - DockerHub: [bluet/jottacloud](https://hub.docker.com/r/bluet/jottacloud)
 
+```
+docker pull bluet/jottacloud
+```
+
+## Use
+`docker run bluet/jottacloud`
+```
+docker run \
+   -e JOTTA_TOKEN=XXXXX \
+   -e JOTTA_DEVICE=YYYY \
+   -e JOTTA_SCANINTERVAL=1h \
+   -e LOCALTIME=ZZZ/ZZZ \
+   -v /data/jottacloud/config:/var/lib/jottad \
+   -v /data/jottacloud/.ignore:/config/.ignore
+   -v /home/:/backup/home \
+   bluet/jottacloud \
+   jottacloud
+```
+
 ## Volume mount-point
 Path | Description
 ------------ | -------------
