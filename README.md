@@ -29,7 +29,7 @@ LOCALTIME | Local timezone. ex, `Aisa/Taipei`
   - Put a `.jottaignore` in that folder.
 
 ### Syntax / Pattern
-`.ignore, `ignorefile`, and `.jottaignore` are `.gitignore` compatible.  You can check templates in [github/gitignore](https://github.com/github/gitignore) or use [Gitignore.io](https://gitignore.io) to generate one for you.
+`.ignore`, `ignorefile`, and `.jottaignore` are `.gitignore` compatible.  You can check templates in [github/gitignore](https://github.com/github/gitignore) or use [Gitignore.io](https://gitignore.io) to generate one for you.
 
 ## Result
 ![2021-05-21 09-37-19 的螢幕擷圖](https://user-images.githubusercontent.com/51141/119069168-32407a80-ba18-11eb-824d-82a60d13437a.png)
