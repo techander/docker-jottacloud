@@ -1,11 +1,11 @@
-FROM debian:10.6-slim
+FROM ubuntu:latest
 
 ENV JOTTA_TOKEN=**None** \
     JOTTA_DEVICE=**None** \
     JOTTA_SCANINTERVAL=1h\
     PUID=101 \
     PGID=101 \
-    LOCALTIME=Europe/Amsterdam \
+    LOCALTIME=Asia/Taipei \
     JOTTAD_USER=jottad \
     JOTTAD_GROUP=jottad
 
