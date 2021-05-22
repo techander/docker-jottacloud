@@ -40,10 +40,11 @@ JOTTA_DEVICE | Device name of the backup machine.  Used for identifying which ma
 JOTTA_SCANINTERVAL | Interval time of the scan-and-backup. Can be `1h`, `30m`, or `0` for realtime monitoing.
 LOCALTIME | Local timezone. ex, `Aisa/Taipei`
 
-## Exclude / Ignore files/folders from being backup (and waste cloud space)
-Jitta's ignore file 
+## Exclude
+It's recommend to exclude some files/folders from being upload, to avoid [triggering speed limt](https://docs.jottacloud.com/en/articles/3271114-reduced-upload-speed) or for security reasons.  
+To do so, jotta-cli supports two different ways:
 - Global excludes
-   - Mount a file to `/config/ignorefile` and it'll be parsed.
+   - Mount a file to `/config/ignorefile` and it'll be parsed during container start and feed into jotta-cli with `jotta-cli ignores` command.
    - Mount or edit `/config/.ignore` directly.
  - Folder specific excludes
   - Put a `.jottaignore` in that folder.
