@@ -1,4 +1,4 @@
-FROM ubuntu:latest
+FROM ubuntu:20.04
 
 ENV JOTTA_TOKEN=**None** \
     JOTTA_DEVICE=**None** \
