@@ -20,7 +20,7 @@ RUN apt-get update -y &&\
 	echo "deb https://repo.jotta.us/debian debian main" | tee /etc/apt/sources.list.d/jotta-cli.list &&\
 	apt-get update -y &&\
 	apt-get install jotta-cli -y &&\
-	apt-get autoremove -y &&\
+	apt-get autoremove -y --purge &&\
 	apt-get clean &&\
 	rm -rf /var/lib/lists/*
 
