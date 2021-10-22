@@ -3,6 +3,11 @@
 #VERSION=0.8.62
 
 docker build -t bluet/jottacloud .
+#docker tag bluet/jottacloud:$VERSION bluet/jottacloud:latest
+#docker push bluet/jottacloud:$VERSION
+# docker push bluet/jottacloud:latest
+# exit 0;
+
 docker scan bluet/jottacloud:latest
 
 #docker tag bluet/cronicle-docker:latest bluet/cronicle-docker:0.8.62

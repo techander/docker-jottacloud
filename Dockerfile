@@ -1,17 +1,15 @@
 FROM ubuntu:20.04
+LABEL maintainer="bluet@bluet.org"
 
-ENV JOTTA_TOKEN=**None** \
-    JOTTA_DEVICE=**None** \
-    JOTTA_SCANINTERVAL=1h\
+ENV JOTTA_TOKEN="**None**" \
+    JOTTA_DEVICE="**docker-jottacloud**" \
+    JOTTA_SCANINTERVAL="12h"\
     PUID=101 \
     PGID=101 \
-    LOCALTIME=Asia/Taipei \
-    JOTTAD_USER=jottad \
-    JOTTAD_GROUP=jottad
-
-COPY entrypoint.sh /src/
-WORKDIR /src
-RUN chmod +x entrypoint.sh
+    LOCALTIME="Asia/Taipei" \
+    JOTTAD_USER="jottad" \
+    JOTTAD_GROUP="jottad" \
+    STARTUP_TIMEOUT=15
 
 RUN apt-get update -y &&\
 	apt-get upgrade -y &&\
@@ -23,6 +21,11 @@ RUN apt-get update -y &&\
 	apt-get autoremove -y --purge &&\
 	apt-get clean &&\
 	rm -rf /var/lib/lists/*
+
+
+COPY entrypoint.sh /src/
+WORKDIR /src
+RUN chmod +x entrypoint.sh
 
 EXPOSE 14443
 
