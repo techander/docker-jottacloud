@@ -5,6 +5,9 @@ Jottacloud is a Cloud Storage (backup) service provider, which offers [unlimited
 
 Support platforms: linux/amd64, linux/arm64
 
+**IMPORTANT: Upstream BREAKING CHANGES in 0.12 (Version 0.12.50392 - 2021-10-26)**
+https://docs.jottacloud.com/en/articles/1461561-release-notes-for-jottacloud-cli
+
 ## Repository
 - GitHub: [bluet/docker-jottacloud](https://github.com/bluet/docker-jottacloud/)
 - DockerHub: [bluet/jottacloud](https://hub.docker.com/r/bluet/jottacloud)
