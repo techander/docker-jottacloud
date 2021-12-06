@@ -11,11 +11,11 @@ if [ $# -eq 1 ] && [ "$@" = "bash" ]; then
 fi
 
 # chown jottad /var/lib/jottad -R
-mkdir /data/jottad
-ln -s /data/jottad /root/.jottad
+mkdir -p /data/jottad
+ln -sfn /data/jottad /root/.jottad
 mkdir -p /root/.config/jotta-cli
-mkdir /data/jotta-cli
-ln -s /data/jotta-cli /root/.config/jotta-cli
+mkdir -p /data/jotta-cli
+ln -sfn /data/jotta-cli /root/.config/jotta-cli
 
 # start the service
 /usr/bin/run_jottad
