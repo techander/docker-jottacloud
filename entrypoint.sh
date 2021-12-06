@@ -5,29 +5,20 @@ set -e
 rm /etc/localtime
 ln -s /usr/share/zoneinfo/$LOCALTIME /etc/localtime
 
-# make sure we are running the latest version of jotta-cli
-apt-get update
-apt-get install jotta-cli
-apt-get autoremove -y
-apt-get clean
-rm -rf /var/lib/lists/*
-
-# set the jottad user and group id
-usermod -u $PUID jottad
-usermod --gid $PGID jottad
-usermod -a -G jottad jottad
-
-sed -i 's+user="jottad"+user="'$JOTTAD_USER'"+g' /etc/init.d/jottad
-sed -i 's+user="jottad"+group="'$JOTTAD_GROUP'"+g' /etc/init.d/jottad
-
-chown jottad /var/lib/jottad -R
-
+# execute bash if given
 if [ $# -eq 1 ] && [ "$@" = "bash" ]; then
   exec "$@"
 fi
 
+# chown jottad /var/lib/jottad -R
+mkdir /data/jottad
+ln -s /data/jottad /root/.jottad
+mkdir -p /root/.config/jotta-cli
+mkdir /data/jotta-cli
+ln -s /data/jotta-cli /root/.config/jotta-cli
+
 # start the service
-/etc/init.d/jottad start
+/usr/bin/run_jottad
 
 # wait for service to fully start
 sleep 5

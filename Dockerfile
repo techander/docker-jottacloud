@@ -1,15 +1,14 @@
 FROM ubuntu:20.04
 LABEL maintainer="bluet@bluet.org"
 
+VOLUME [ "/data" ]
+
 ENV JOTTA_TOKEN="**None**" \
     JOTTA_DEVICE="**docker-jottacloud**" \
     JOTTA_SCANINTERVAL="12h"\
-    PUID=101 \
-    PGID=101 \
     LOCALTIME="Asia/Taipei" \
-    JOTTAD_USER="jottad" \
-    JOTTAD_GROUP="jottad" \
-    STARTUP_TIMEOUT=15
+    STARTUP_TIMEOUT=15 \
+    JOTTAD_SYSTEMD=0
 
 RUN apt-get update -y &&\
 	apt-get upgrade -y &&\
@@ -17,7 +16,7 @@ RUN apt-get update -y &&\
 	wget -O - https://repo.jotta.us/public.gpg | apt-key add - &&\
 	echo "deb https://repo.jotta.us/debian debian main" | tee /etc/apt/sources.list.d/jotta-cli.list &&\
 	apt-get update -y &&\
-	apt-get install jotta-cli -y &&\
+	apt-get install jotta-cli psmisc -y &&\
 	apt-get autoremove -y --purge &&\
 	apt-get clean &&\
 	rm -rf /var/lib/lists/*

@@ -3,6 +3,8 @@ Docker of Jottacloud client side backup daemon with jotta-cli and jottad inside.
 
 Jottacloud is a Cloud Storage (backup) service provider, which offers [unlimited storage space](https://www.jottacloud.com/en/pricing.html) for personal use.
 
+Support platforms: linux/amd64, linux/arm64
+
 ## Repository
 - GitHub: [bluet/docker-jottacloud](https://github.com/bluet/docker-jottacloud/)
 - DockerHub: [bluet/jottacloud](https://hub.docker.com/r/bluet/jottacloud)
@@ -17,20 +19,39 @@ docker pull bluet/jottacloud
 docker run \
    -e JOTTA_TOKEN=XXXXX \
    -e JOTTA_DEVICE=YYYY \
-   -e JOTTA_SCANINTERVAL=1h \
-   -e LOCALTIME=ZZZ/ZZZ \
-   -v /data/jottacloud/config:/var/lib/jottad \
-   -v /data/jottacloud/.ignore:/config/.ignore
+   -v /dockerdata/jottacloud/config:/data/jottad \
    -v /home/:/backup/home \
-   bluet/jottacloud \
-   jottacloud
+   bluet/jottacloud
+```
+```
+docker run \
+   -e JOTTA_TOKEN=XXXXX \
+   -e JOTTA_DEVICE=YYYY \
+   -e JOTTA_SCANINTERVAL=12h \
+   -e LOCALTIME=ZZZ/ZZZ \
+   -v /data/jottacloud/config:/data/jottad \
+   -v /data/jottacloud/ignore:/data/jottad/.ignore \
+   -v /data/jottacloud/jotta-cli.env:/data/jotta-cli/jotta-cli.env \
+   -v /home/:/backup/home \
+   --name jottacloud \
+   bluet/jottacloud
+```
+
+For debugging:
+```
+docker run -it bluet/jottacloud bash
+```
+```
+docker exec -it jottacloud bash
 ```
 
 ## Volume mount-point
 Path | Description
 ------------ | -------------
-/var/lib/jottad/ | Config and data. In order to keep login status and track backup progress, please use a persistent volume.
-/backup/ | Data you want to backup. ex,  `~/foo/ => /backup/foo`, `/etc/ => /backup/etc/`, or just `/volume1/ => /backup/`.
+/data/jottad | Config and data. In order to keep login status and track backup progress, please use a persistent volume.
+/data/jottad/.ignore | exclude pattern
+/data/jotta-cli/jotta-cli.env | jotta-cli.env
+/backup/ | Data you want to backup. ex, `-v /home/:/backup/home/`, or -v `/backup/:/backup/`.
 
 ## ENV
 Name | Value
@@ -39,14 +60,15 @@ JOTTA_TOKEN | Your `Personal login token`. Please obtain it from Jottacloud dash
 JOTTA_DEVICE | Device name of the backup machine.  Used for identifying which machine these backup data belongs to.
 JOTTA_SCANINTERVAL | Interval time of the scan-and-backup. Can be `1h`, `30m`, or `0` for realtime monitoing.
 LOCALTIME | Local timezone. ex, `Aisa/Taipei`
+STARTUP_TIMEOUT | how many second to wait before retry startup.
+
 
 ## Exclude
 It's recommend to exclude some files/folders from being upload, to avoid [triggering speed limt](https://docs.jottacloud.com/en/articles/3271114-reduced-upload-speed) or for security reasons.  
 To do so, jotta-cli supports two different ways:
 - Global excludes
-   - Mount a file to `/config/ignorefile` and it'll be parsed during container start and feed into jotta-cli with `jotta-cli ignores` command.
    - Mount or edit `/config/.ignore` directly.
- - Folder specific excludes
+- Folder specific excludes
   - Put a `.jottaignore` in that folder.
 
 You can also check my sample [.jottaignore](https://github.com/bluet/docker-jottacloud/blob/main/.jottaignore) file.
