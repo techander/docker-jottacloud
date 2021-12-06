@@ -18,7 +18,7 @@ mkdir -p /data/jotta-cli
 ln -sfn /data/jotta-cli /root/.config/jotta-cli
 
 # start the service
-/usr/bin/run_jottad
+/usr/bin/run_jottad &
 
 # wait for service to fully start
 sleep 5
@@ -49,7 +49,12 @@ while :; do
 
     elif [[ "$(timeout 1 jotta-cli status 2>&1)" =~ "Error: The session has been revoked." ]]; then
       echo -n "Session expired. Logging out."
-      jotta-cli logout
+      /usr/bin/expect -c "
+      set timeout 20
+      spawn jotta-cli logout
+      expect \"Backup will stop. Continue?(y/n): \" {send \"y\n\"}
+      expect eof
+      "
 
       echo -n "Logging in again."
       # Login user
