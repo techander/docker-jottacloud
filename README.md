@@ -59,15 +59,17 @@ Path | Description
 ## ENV
 Name | Value
 ------------ | -------------
-JOTTA_TOKEN | Your `Personal login token`. Please obtain it from Jottacloud dashboard [Settings -> Security](https://www.jottacloud.com/web/secure). This will only show once and can only be used in a short time, so please use persistent valume on `/var/lib/jottad/` to save your login status.
+JOTTA_TOKEN | Your `Personal login token`. Please obtain it from Jottacloud dashboard [Settings -> Security](https://www.jottacloud.com/web/secure). This will only show once and can only be used in a short time, so please use persistent volume on `/var/lib/jottad/` to save your login status.
 JOTTA_DEVICE | Device name of the backup machine.  Used for identifying which machine these backup data belongs to.
 JOTTA_SCANINTERVAL | Interval time of the scan-and-backup. Can be `1h`, `30m`, or `0` for realtime monitoing.
-LOCALTIME | Local timezone. ex, `Aisa/Taipei`
+LOCALTIME | Local timezone. ex, `Asia/Taipei`
 STARTUP_TIMEOUT | how many second to wait before retry startup.
 
 
 ## Exclude
-It's recommend to exclude some files/folders from being upload, to avoid [triggering speed limt](https://docs.jottacloud.com/en/articles/3271114-reduced-upload-speed) or for security reasons.  
+**IMPORTANT: Upstream BREAKING CHANGES in 0.12 (Version 0.12.50392 - 2021-10-26). .jottaignore no longer works.**
+https://docs.jottacloud.com/en/articles/1461561-release-notes-for-jottacloud-cli
+It's recommend to exclude some files/folders from being upload, to avoid [triggering speed limit](https://docs.jottacloud.com/en/articles/3271114-reduced-upload-speed) or for security reasons.  
 To do so, jotta-cli supports two different ways:
 - Global excludes
    - Mount or edit `/config/.ignore` directly.
