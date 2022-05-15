@@ -1,14 +1,18 @@
-FROM ubuntu:20.04
-LABEL maintainer="bluet@bluet.org"
+# Name: jottacloud
+# Description: This dockerfile is used to build the docker image for a containerized jotta backup client, with the latest version of official jotta-cli preloaded at the time of build.
+# Author: BlueT - Matthew Lien - 練喆明
+
+FROM ubuntu:22.04
+LABEL org.opencontainers.image.authors="bluet@bluet.org"
 
 VOLUME [ "/data" ]
 
 ENV JOTTA_TOKEN="**None**" \
-    JOTTA_DEVICE="**docker-jottacloud**" \
-    JOTTA_SCANINTERVAL="12h"\
-    LOCALTIME="Asia/Taipei" \
-    STARTUP_TIMEOUT=15 \
-    JOTTAD_SYSTEMD=0
+	JOTTA_DEVICE="**docker-jottacloud**" \
+	JOTTA_SCANINTERVAL="12h"\
+	LOCALTIME="Asia/Taipei" \
+	STARTUP_TIMEOUT=15 \
+	JOTTAD_SYSTEMD=0
 
 RUN apt-get update -y &&\
 	apt-get upgrade -y &&\
@@ -20,7 +24,6 @@ RUN apt-get update -y &&\
 	apt-get autoremove -y --purge &&\
 	apt-get clean &&\
 	rm -rf /var/lib/lists/*
-
 
 COPY entrypoint.sh /src/
 WORKDIR /src
