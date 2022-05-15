@@ -108,11 +108,7 @@ You can also check my sample [.jottaignore](https://github.com/bluet/docker-jott
 - [Ignoring files and folders from backup with Jottacloud CLI](https://docs.jottacloud.com/en/articles/1437235-ignoring-files-and-folders-from-backup-with-jottacloud-cli)
 
 ## Credit
-This is a fork from [maaximal/jottadocker](https://github.com/maaximal/jottadocker) with some improvements and fixes to support latest jottacloud CLI.
-
-<!-- ALL-CONTRIBUTORS-BADGE:START - Do not remove or modify this section -->
-[![All Contributors](https://img.shields.io/badge/all_contributors-13-orange.svg?style=flat-square)](#contributors)
-<!-- ALL-CONTRIBUTORS-BADGE:END --> 
+This is a fork from [maaximal/jottadocker](https://github.com/maaximal/jottadocker) with some improvements and fixes to support latest jottacloud CLI and other additional features.
 
 ## Contributors ✨
 
