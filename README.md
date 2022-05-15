@@ -17,7 +17,7 @@ docker pull bluet/jottacloud
 ```
 
 ## Use
-`docker run bluet/jottacloud`
+To start a long running jottacloud backup client, the easy way:
 ```
 docker run \
    -e JOTTA_TOKEN=XXXXX \
@@ -26,6 +26,7 @@ docker run \
    -v /home/:/backup/home \
    bluet/jottacloud
 ```
+To start a long running jottacloud backup client, with custom configs:
 ```
 docker run \
    -e JOTTA_TOKEN=XXXXX \
@@ -34,7 +35,7 @@ docker run \
    -e LOCALTIME=ZZZ/ZZZ \
    -v /data/jottacloud/config:/data/jottad \
    -v /data/jottacloud/ignore:/data/jottad/.ignore \
-   -v /data/jottacloud/jotta-cli.env:/data/jotta-cli/jotta-cli.env \
+   -v /data/jottacloud/jottad.env:/data/jottad/jottad.env \
    -v /home/:/backup/home \
    --name jottacloud \
    bluet/jottacloud
@@ -44,22 +45,33 @@ For debugging:
 ```
 docker run -it bluet/jottacloud bash
 ```
+For debugging a running container:
 ```
 docker exec -it jottacloud bash
 ```
 
 ## Volume mount-point
+Must-have: `/data/jottad` and `/backup/`.
+
 Path | Description
 ------------ | -------------
 /data/jottad | Config and data. In order to keep login status and track backup progress, please use a persistent volume.
-/data/jottad/.ignore | exclude pattern
-/data/jotta-cli/jotta-cli.env | jotta-cli.env
+/data/jottad/.ignore | exclude pattern [#Exclude]
+/data/jottad/jottad.env | Environment variables for jottad (jotta-cli) container
 /backup/ | Data you want to backup. ex, `-v /home/:/backup/home/`, or -v `/backup/:/backup/`.
 
 ## ENV
+Must-have: `JOTTA_TOKEN` and `JOTTA_DEVICE`.
+
+Environment variables loading sequence and priority:
+1. Default values. (In Dockerfile)
+2. Set by `docker run` command. (Overrides all above)
+3. `/data/jottad/jottad.env` file. (Overrides all above)
+4. Docker secret key `jotta_token`. (Overrides all above)
+
 Name | Value
 ------------ | -------------
-JOTTA_TOKEN | Your `Personal login token`. Please obtain it from Jottacloud dashboard [Settings -> Security](https://www.jottacloud.com/web/secure). This will only show once and can only be used in a short time, so please use persistent volume on `/var/lib/jottad/` to save your login status.
+JOTTA_TOKEN | Your `Personal login token`. Please obtain it from Jottacloud dashboard [Settings -> Security](https://www.jottacloud.com/web/secure). This will only show once and can only be used in a short time, so please use persistent volume on `/data/jottad/` to save your login status.
 JOTTA_DEVICE | Device name of the backup machine.  Used for identifying which machine these backup data belongs to.
 JOTTA_SCANINTERVAL | Interval time of the scan-and-backup. Can be `1h`, `30m`, or `0` for realtime monitoing.
 LOCALTIME | Local timezone. ex, `Asia/Taipei`
@@ -67,9 +79,11 @@ STARTUP_TIMEOUT | how many second to wait before retry startup.
 
 
 ## Exclude
-**IMPORTANT: Upstream BREAKING CHANGES in 0.12 (Version 0.12.50392 - 2021-10-26). .jottaignore no longer works.**
+**IMPORTANT: Since 0.12.50392 (2021-10-26) this no longer works. PRs welcome.**
 https://docs.jottacloud.com/en/articles/1461561-release-notes-for-jottacloud-cli
-It's recommend to exclude some files/folders from being upload, to avoid [triggering speed limit](https://docs.jottacloud.com/en/articles/3271114-reduced-upload-speed) or for security reasons.  
+
+It's recommend to exclude some files/folders from being upload, to avoid [triggering speed limit](https://docs.jottacloud.com/en/articles/3271114-reduced-upload-speed) or for security reasons.
+
 To do so, jotta-cli supports two different ways:
 - Global excludes
    - Mount or edit `/config/.ignore` directly.
@@ -91,4 +105,4 @@ You can also check my sample [.jottaignore](https://github.com/bluet/docker-jott
 - [Ignoring files and folders from backup with Jottacloud CLI](https://docs.jottacloud.com/en/articles/1437235-ignoring-files-and-folders-from-backup-with-jottacloud-cli)
 
 ## Credit
-This is a fork with fixes from [maaximal/jottadocker](https://github.com/maaximal/jottadocker)
+This is a fork from [maaximal/jottadocker](https://github.com/maaximal/jottadocker) with some improvements and fixes to support latest jottacloud CLI.

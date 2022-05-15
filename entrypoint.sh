@@ -1,6 +1,16 @@
 #!/bin/bash
 set -e
 
+set -o allexport
+if test -f "/data/jottad/jottad.env"; then
+  source /data/jottad/jottad.env
+fi
+set +o allexport
+
+if test -f "/run/secrets/jotta_token"; then
+  JOTTA_TOKEN=`cat /run/secrets/jotta_token`
+fi
+
 # set timezone
 rm /etc/localtime
 ln -s /usr/share/zoneinfo/$LOCALTIME /etc/localtime
