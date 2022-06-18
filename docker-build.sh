@@ -28,7 +28,7 @@ done
 
 read -p "Tag the version of code as ${VERSION} in git? [y/N]" yn
 case $yn in
-	[Yy]* ) git tag "${VERSION}" -a -m "jotta-cli ${VERSION}" && git push --tags .;;
+	[Yy]* ) git tag "${VERSION}" -a -m "jotta-cli ${VERSION}" && git push --tags;;
 	* ) echo "";;
 esac
 
