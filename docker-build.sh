@@ -1,6 +1,7 @@
 #!/bin/bash
 
-VERSION=0.14.58899
+VERSION=0.14.60923
+DATE=`date +%Y%M%d`
 
 docker build -t bluet/jottacloud .
 docker scan bluet/jottacloud:latest
@@ -18,7 +19,7 @@ docker buildx create --use
 while true; do
         read -p "Everything ready? (We're going to build multi-platform images and push) [y/N]" yn
         case $yn in
-                [Yy]* ) docker buildx build -t bluet/jottacloud:latest --platform linux/amd64,linux/arm64/v8 --push .; break;;
+                [Yy]* ) docker buildx build -t bluet/jottacloud:latest -t bluet/jottacloud:${VERSION}-${DATE} --platform linux/amd64,linux/arm64/v8 --push .; break;;
                 [Nn]* ) exit;;
                 * ) echo "";;
         esac
