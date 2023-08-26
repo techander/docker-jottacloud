@@ -1,12 +1,13 @@
 #!/bin/bash
 
-VERSION=0.15.84961
+VERSION=0.15.89752
 DATE=`date +%Y%m%d`
 
 docker build --pull -t bluet/jottacloud .
 docker scan bluet/jottacloud:latest
 
 docker tag bluet/jottacloud:latest bluet/jottacloud:${VERSION}
+# git tag moved to the last step
 #git tag "${VERSION}" -a -m "jotta-cli ${VERSION}"
 #git push --tags
 
