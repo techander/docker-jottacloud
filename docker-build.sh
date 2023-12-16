@@ -1,6 +1,6 @@
 #!/bin/bash
 
-VERSION=0.15.93226
+VERSION=0.15.98319
 DATE=`date +%Y%m%d`
 
 docker build --pull -t bluet/jottacloud .
@@ -13,7 +13,7 @@ docker tag bluet/jottacloud:latest bluet/jottacloud:${VERSION}
 
 
 # Fixes busybox trigger error https://github.com/tonistiigi/xx/issues/36#issuecomment-926876468
-docker run --privileged -it --rm tonistiigi/binfmt --install all
+docker run --pull always --privileged -it --rm tonistiigi/binfmt --install all
 
 docker buildx create --use
 
