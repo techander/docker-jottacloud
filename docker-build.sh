@@ -3,10 +3,10 @@
 VERSION=0.15.98319
 DATE=`date +%Y%m%d`
 
-docker build --pull -t bluet/jottacloud .
-docker scan bluet/jottacloud:latest
+docker build --pull -t techander/docker-jottacloud .
+docker scan techander/docker-jottacloud:latest
 
-docker tag bluet/jottacloud:latest bluet/jottacloud:${VERSION}
+docker tag techander/docker-jottacloud:latest techander/docker-jottacloud:${VERSION}
 # git tag moved to the last step
 #git tag "${VERSION}" -a -m "jotta-cli ${VERSION}"
 #git push --tags
@@ -20,7 +20,7 @@ docker buildx create --use
 while true; do
         read -p "Everything ready? (We're going to build multi-platform images and push) [y/N]" yn
         case $yn in
-                [Yy]* ) docker buildx build -t bluet/jottacloud:latest -t bluet/jottacloud:${VERSION}-${DATE} --platform linux/amd64,linux/arm64/v8 --pull --push .; break;;
+                [Yy]* ) docker buildx build -t techander/docker-jottacloud:latest -t techander/docker-jottacloud:${VERSION}-${DATE} --platform linux/amd64,linux/arm64/v8 --pull --push .; break;;
                 [Nn]* ) break;;
                 * ) echo "";;
         esac
